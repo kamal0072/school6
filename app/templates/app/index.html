@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <style>
+        h1{
+            text-align:center;
+            padding:15px;
+            background-color:lightgreen;
+            border:2px solid black;
+            font-style: oblique;
+            border-radius:25px;
+            text-shadow: 2px 1px 3px red;
+        }
+        h1:hover{
+            background-color:lightblue;
+            box-shadow:red;
+            box-shadow: 0 0 30px rgba(33,33,33,.2);
+        }
+        title{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="#">Group Name: {{group_name}}</a></h1>
+
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input"  type="text"  size='100'><br> <br>
+    <input id="chat-message-submit"  type="button" value="Send" size="100">
+    <a href="{% url 'home' %}">Index</a>
+    {{group_name|json_script:"group-name"}}
+    <script>
+        const groupName=JSON.parse(document.getElementById('group-name').textContent)
+        console.log(groupName)
+        var ws= new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/wsc/'
+            + groupName
+            + '/' 
+            // example for url:'ws"//127.0.0.1:8000/ws/wsc/indian/'
+        )
+    </script>
+</body>
+</html>
